@@ -8,16 +8,22 @@ import Notification from '../../validators/notification'
 import Person from '../../validators/person'
 import Report from '../../validators/report'
 import Status from '../../validators/status'
+import Recover from '../../validators/recover'
+import CheckEmail from '../../validators/checkEmail'
 import crypto from 'crypto'
 import Middleware from '../../middleware'
+import Questionary from '../../validators/questionary'
 
 const vNotification = new Notification()
 const vPerson = new Person()
 const vReport = new Report()
 const vStatus = new Status()
+const vRecover = new Recover()
+const vCheckEmail = new CheckEmail()
+const vQuestionary = new Questionary()
 const cAux = new Aux()
 const m = new Middleware();
-const controllerMain = new Generic(PersonModel, [ 'name', 'lastname', 'active', 'images', 'address', 'phoneNumber', 'password', 'gender', 'email' ])
+const controllerMain = new Generic(PersonModel, [ 'name', 'lastname', 'active', 'images', 'address', 'phoneNumber', 'password', 'gender', 'email', 'questions', 'tokenFireBase' ])
 const router = Router()
 
 const storage = multer.diskStorage({
@@ -62,5 +68,14 @@ router.route('/register')
   
 router.route('/status')
   .post([vStatus.new], cAux.status)
+
+router.route('/recover')
+  .post([vRecover.new, m.password], cAux.recover)
+
+router.route('/check-email')
+  .post([vCheckEmail.new], cAux.checkEmail)
+
+router.route('/questionary')
+  .post([vQuestionary.new], cAux.questionary)
 
 export default router

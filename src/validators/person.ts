@@ -4,6 +4,7 @@ import { NextFunction, Request, Response } from 'express'
 import CustomError from '../plugins/customError'
 import Validator from './validator'
 
+const objectId = require('joi-objectid')(Joi)
 const PasswordComplexity = require('joi-password-complexity')
 
 export default class Person implements Validator {
@@ -21,6 +22,8 @@ export default class Person implements Validator {
       password: PasswordComplexity(),
       gender: Joi.string().required(),
       email: Joi.string().required(),
+      questions: objectId(),
+      tokenFireBase: Joi.string(),
     })
     const { error } = schema.validate(req.body, { abortEarly: false });
     console.log(error);
@@ -38,6 +41,8 @@ export default class Person implements Validator {
       password: PasswordComplexity(),
       gender: Joi.string(),
       email: Joi.string(),
+      questions: objectId(),
+      tokenFireBase: Joi.string(),
     })
     const { error } = schema.validate(req.body, { abortEarly: false });
     console.log(error);

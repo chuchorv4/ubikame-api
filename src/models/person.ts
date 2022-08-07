@@ -10,6 +10,8 @@ export interface Person extends Document {
   email: string
   phone: string
   password: string
+  questions: Schema.Types.ObjectId
+  tokenFireBase: string
 }
 
 const PersonSchema = new Schema({
@@ -41,7 +43,8 @@ const PersonSchema = new Schema({
   email: {
     type: String,
     required: true,
-    maxlength: 255
+    maxlength: 255,
+    unique: true
   },
   phoneNumber: {
     type: String,
@@ -55,8 +58,23 @@ const PersonSchema = new Schema({
     minlength: 8,
     maxlength: 255
   },
+  questions: {
+     type: Schema.Types.ObjectId,
+    ref: 'Questionary',
+  },
+  tokenFireBase: {
+    type: String
+  }
 }, {
-  versionKey: false
+  versionKey: false,
+  timestamps: true
+})
+
+PersonSchema.index({ createdAt: 1 }, {
+  expires: '1d',
+  partialFilterExpression: {
+    questions:{$ne:null}
+  }
 })
 
 PersonSchema.methods.toJSON = function() {

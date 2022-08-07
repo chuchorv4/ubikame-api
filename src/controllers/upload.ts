@@ -12,7 +12,6 @@ export default class Uploader {
 
   constructor (fieldName: string, pathDir: string, publicPath: string) {
     this.publicPath = publicPath
-    console.log(publicPath)
     this.storage = multer.diskStorage({
       destination: function (req, file, cb) {
         cb(null, path.join(__dirname, pathDir))

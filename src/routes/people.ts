@@ -1,5 +1,5 @@
 import Validator from '../validators/person'
-import Generic from '../controllers'
+import People from '../controllers/people'
 import { PersonModel } from '../models/person'
 import { NextFunction, Request, Response } from 'express'
 import CRUD from './crud'
@@ -27,7 +27,7 @@ const storage = multer.diskStorage({
 })
 const instance = multer({ storage: storage })
 
-const controller = new Generic(PersonModel, [ 'name', 'lastname', 'active', 'images', 'address', 'phoneNumber', 'password', 'gender', 'email' ])
+const controller = new People(PersonModel, [ 'name', 'lastname', 'active', 'images', 'address', 'phoneNumber', 'password', 'gender', 'email', 'questions', 'tokenFireBase' ])
 const crud = new CRUD('people', controller, v, [ instance.array('img'), (req: Request, res: Response, next: NextFunction) => {
   if (typeof req.files != 'undefined') {
     let temp : Array<any> = []

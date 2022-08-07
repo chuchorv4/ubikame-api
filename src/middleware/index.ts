@@ -42,7 +42,7 @@ export default class Middleware {
     urlencoded({extended: true}),
     methodOverride(),
     cors(),
-    expressjwt({ secret: process.env.SECRET || '', algorithms: ['HS256'] }).unless({ path: ["/v1/auth/login","/v1/public/notification","/v1/public/register", "/v1/public/report"] })
+    expressjwt({ secret: process.env.SECRET || '', algorithms: ['HS256'] }).unless({ path: ["/v1/auth/login","/v1/public/notification","/v1/public/register", "/v1/public/report", "/v1/public/status", "/v1/public/recover", "/v1/public/check-email", "/v1/public/questionary"] })
   ]
 
 }

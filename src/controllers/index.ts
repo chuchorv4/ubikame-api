@@ -4,7 +4,7 @@ import CustomError from '../plugins/customError'
 import { isValidObjectId, Model } from 'mongoose'
 
 export default class Generic {
-  private Model: Model<any>
+  Model: Model<any>
   private attributes: Array<string>
 
   constructor(Model: Model<any>, attributes: Array<string>) {

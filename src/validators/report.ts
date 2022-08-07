@@ -25,6 +25,7 @@ export default class Report implements Validator {
       user: objectId(),
       message: Joi.string(),
       audio: Joi.string(),
+      status: Joi.string(),
     })
     const { error } = schema.validate(req.body, { abortEarly: false });
     (error) ? next(new CustomError(error, httpStatus.BAD_REQUEST)) : next()

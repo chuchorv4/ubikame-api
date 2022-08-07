@@ -8,7 +8,9 @@ const v = new Validator()
 
 const controller = new Generic(ReportModel, ['user','message','audio', 'date'])
 const crud = new CRUD('reports', controller, v, [], [(req: Request, res: Response, next: NextFunction) => {
-  req.body.date = Date.now()
+  if (req.method == 'POST') {
+    req.body.date = Date.now()
+  }
   next()
 } ])
 const router = crud.getRouter()
